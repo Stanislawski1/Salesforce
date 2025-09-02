@@ -14,16 +14,18 @@ public class LoginPage extends BasePage {
         super(driver);
     }
 
-    public void open() {
+    public LoginPage open() {
         driver.get(BASE_URL);
         wait.until(ExpectedConditions.visibilityOfElementLocated(LOGIN_BUTTON));
+        return this;
     }
 
-    public void login(String user, String password) {
+    public HomePage login(String user, String password) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(USERNAME_INPUT));
         driver.findElement(USERNAME_INPUT).sendKeys(user);
         wait.until(ExpectedConditions.visibilityOfElementLocated(PASSWORD));
         driver.findElement(PASSWORD).sendKeys(password);
         driver.findElement(LOGIN_BUTTON).click();
+        return  new HomePage(driver);
     }
 }
