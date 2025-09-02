@@ -1,5 +1,6 @@
 package tests;
 
+import dto.AccountFactory;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -8,11 +9,12 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
+import pages.AccountPage;
 import pages.LoginPage;
 import pages.NewAccountModal;
-import pages.NewAccountPage;
 import plugins.TestListener;
-import wrappers.TextArea;
+import steps.AccountStep;
+import steps.LoginStep;
 
 import java.time.Duration;
 import java.util.HashMap;
@@ -23,7 +25,10 @@ public class BaseTest {
 
     WebDriver driver;
     NewAccountModal newAccountModal;
-    NewAccountPage newAccountPage;
+    AccountFactory accountFactory;
+    AccountPage accountPage;
+    LoginStep loginStep;
+    AccountStep accountStep;
 
     @Parameters({"browser"})
     @BeforeMethod
@@ -45,12 +50,14 @@ public class BaseTest {
         }
         newAccountModal = new NewAccountModal(driver);
         loginPage = new LoginPage(driver);
-        newAccountPage = new NewAccountPage(driver);
+        accountFactory = new AccountFactory();
+        accountPage = new AccountPage(driver);
+        loginStep = new LoginStep(driver);
+        accountStep = new AccountStep(driver);
 
         context.setAttribute("driver", driver);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-
     }
 
     @AfterMethod

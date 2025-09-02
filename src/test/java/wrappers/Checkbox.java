@@ -21,7 +21,7 @@ public class Checkbox {
 
     public void select() {
         WebElement labelElement = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath(String.format("//span[text()='%s']", label))
+                By.xpath(String.format("//span[contains(text(),'%s')]", label))
         ));
 
         scrollToElement(labelElement);
